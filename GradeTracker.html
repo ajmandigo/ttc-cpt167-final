@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Grade Tracker</title>
+		<meta name="author" content="Alex" />
+		<!-- Date: 2015-04-25 -->
+		<script type="text/javascript">
+		
+		///PURPOSE:	Input numeric grade (integers only)
+		///PASSED IN: nothing
+		///RETURNED: integer representing grade
+		function gimmeThemPoints()
+		{
+			var points = 0;
+			
+			///Input
+			points = prompt("Please type in your score.","0");
+			
+			///Conversion
+			points = Math.round(points);
+			
+			return points;
+		}///End gimmeThemPoints
+		
+		///PURPOSE:	Converts numeric grade into letter grade
+		///PASSED IN: current value of currentScore
+		///RETURNED: string representing grade
+		function whatGradeIsIt(currentScore)
+		{
+			var CUTOFF_A = 91;
+			var CUTOFF_B = 81;
+			var CUTOFF_C = 71;
+			var CUTOFF_D = 65;
+			var letterGrade = "";
+			
+			if (currentScore >= CUTOFF_A)
+			{///Begin if
+				letterGrade = "A";
+			}
+	        else if (currentScore >= CUTOFF_B)
+            {
+	            letterGrade = "B";
+	        }
+            else if (currentScore >= CUTOFF_C)
+            {
+	            letterGrade = "C";
+	        }
+            else if (currentScore >= CUTOFF_D)
+            {
+	            letterGrade = "D";
+	        }
+            else
+	        {   
+	            letterGrade = "F";
+			}///End if
+			
+			return letterGrade;
+		}///End whatGradeIsIt
+		
+		///PURPOSE:	Calculates average grade based on valid grades
+		///PASSED IN: totalValidGrades, totalValidPoints
+		///RETURNED: float value representing average grade
+		function andTheAverageIs(totalValidGrades, totalValidPoints)
+		{
+			var average = 0.0;
+			
+			average = totalValidPoints / totalValidGrades;
+			
+			return average;
+		}///End andTheAverageIs
+		
+		///PURPOSE:	Displays final results in main
+		///PASSED IN: totalValidGrades, totalNumGrades, averageGrade, totalA, totalB, totalC, totalD, totalF
+		///RETURNED: Nothing
+		function gimmeResults(totalValidGrades, totalNumGrades, averageGrade, totalA, totalB, totalC, totalD, totalF)
+		{
+			document.write("<b>=====The Great and Fantastic Grade Tracker=====</b><br>");
+			document.write("***************Follow your success!**************<br>");
+			document.write("     <br>");
+			document.write("The total number of grades you entered is " + totalNumGrades + ".<br>");
+			document.write("The total number of grades used to calculate your average is " + totalValidGrades + ".<br>");
+			document.write("Your average grade comes out to be " + averageGrade + ".<br>");
+			document.write("You have earned " + totalA + " A grades.<br>");
+			document.write("You have earned " + totalB + " B grades.<br>");
+			document.write("You have earned " + totalC + " C grades.<br>");
+			document.write("You have earned " + totalD + " D grades.<br>");
+			document.write("You have earned " + totalF + " F grades.<br>");
+			document.write("     <br>");
+			document.write("*******Thank you for using the Grade Tracker!*******");
+			
+		}///End gimmeResults
+		
+		///PURPOSE:	Main driver for program
+		///PASSED IN: Nothing
+		///RETURNED: Nothing
+		function main()
+		{
+			var COUNTER = 1;
+			var VALIDATE = 0;
+            var keepGoing = "";
+			var currentScore = 0;
+			var totalValidGrades = 0;
+			var totalValidPoints = 0;
+			var totalNumGrades = 0;
+			var yourLetterGrade = "";
+			var averageGrade = 0.0;
+			var totalA = 0;
+			var totalB = 0;
+			var totalC = 0;
+			var totalD = 0;
+			var totalF = 0;
+			
+			///Input
+			keepGoing = prompt("Would you like to input a score? (Y)es/(N)o","Y");
+			
+			///Conversion
+			keepGoing = keepGoing.toUpperCase();
+			
+			while (keepGoing == "Y")
+			{///Start loop
+				currentScore = gimmeThemPoints();
+				yourLetterGrade = whatGradeIsIt(currentScore);
+				alert("Your current grade is a(n) " + yourLetterGrade + ".");
+				
+				///Calculations
+				if (currentScore > VALIDATE)
+				{///Start if
+					totalValidGrades = totalValidGrades + COUNTER;
+					totalValidPoints = totalValidPoints + currentScore;
+				}///End if
+				
+				switch (yourLetterGrade)
+				{///Start switch
+					case "A":
+						totalA = totalA + COUNTER;
+					break;
+					
+					case "B":
+						totalB = totalB + COUNTER;
+					break;
+					
+					case "C":
+						totalC = totalC + COUNTER;
+					break;
+					
+					case "D":
+						totalD = totalD + COUNTER;
+					break;
+					
+					case "F":
+						totalF = totalF + COUNTER;
+					break;
+				}///End switch
+				
+				totalNumGrades = totalNumGrades + COUNTER;
+				
+				///Input again
+				keepGoing = prompt("Input another score? (Y)es/(N)o","Y");
+				keepGoing = keepGoing.toUpperCase();
+			}///End loop
+			
+			///Calculation
+			averageGrade = andTheAverageIs(totalValidGrades, totalValidPoints);
+			
+			///Output
+			gimmeResults(totalValidGrades, totalNumGrades, averageGrade, totalA, totalB, totalC, totalD, totalF);
+			
+		}///End main
+		</script>
+	</head>
+	<body>
+		<script type="text/javascript">
+			///File: GradeTracker.html
+		    ///PROG: Alex Mandigo
+		    ///PURP: To track inputed grades and give an average.
+			main();
+			
+			///END PROGRAM
+		</script>
+	</body>
+</html>
+
